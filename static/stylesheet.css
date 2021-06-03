@@ -1,0 +1,72 @@
+.btn-square{
+    display:inline-block;
+    padding:0.5em 1em;
+    text-decoration: none;
+    background: #668ad8;
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+}
+
+.btn-square:active{
+    /*ボタンを押したとき*/
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px); /*下に動く*/
+    border-bottom: none;/*線を消す*/
+}
+.results {
+    display:inline-block;
+    font-size:10px;
+    /*margin:0px;*/
+    /*padding:0px;*/
+    width:auto;
+    overflow-x:scroll;
+    text-align:center;
+    height:50%;
+    float:none;
+}
+footer{
+    position:fixed;
+    right:0px;
+}
+h1{
+    text-align:center;
+}
+#search_windows{
+    text-align:center;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    position:relative;
+    width:auto;
+}
+
+#picture {
+    text-align:center;
+    margin-top:0;
+    margin-bottom:30px;
+    margin:auto;
+}
+
+#picture_1 {
+    height:50%;
+    width:50%;
+}
+
+#kensaku {
+    width:50vw;
+    text-align:center;
+    margin:auto;
+}
+
+.navi {
+    scroll-behavior: auto;
+}
+
+#yajirushi {
+    height:50px;
+    width:50px;
+    margin-left:30px;
+}

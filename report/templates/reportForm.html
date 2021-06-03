@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <title>検索結果</title>
+    </head>
+    <body>
+        <form>
+            <h1>検索結果</h1>
+            {% csrf_token %}
+            <table>
+                <p>侍エンジニア塾　ブログ</p> <!-- 侍エンジニア塾結果出力先-->
+            {% for x in titles_sm %} <!-- 侍エンジニア塾 記事タイトル-->
+                <tr>
+                    <td>{{ x }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>中身が空です。</td>
+                </tr>
+            {% endfor %}
+
+            {% for y in links_sm %} <!--侍エンジニア塾 URL-->
+                <tr>
+                    <td>{{ y }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>中身が空です。</td>
+                </tr>
+            {% endfor %}
+
+
+            <table>
+                <p>TechAcademy</p> <!--TechAcademy出力先-->
+            {% for a in titles_ta %} <!-- TechAcademy 記事タイトル-->
+                <tr>
+                    <td>{{ a }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>中身が空です。</td>
+                </tr>
+            {% endfor %}
+
+            {% for b in links_ta %} <!--TechAcademy URL-->
+                <tr>
+                    <td>{{ b }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>中身が空です。</td>
+                </tr>
+            {% endfor %}
+
+            {% for c in setsumei_ta %} <!--TechAcademy記事冒頭/小見出し-->
+                <tr>
+                    <td>{{ c }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>中身が空です。</td>
+                </tr>
+            {% endfor %}
+            <table>
+                <p>Qiita</p> <!--Qiita出力先-->
+            {% for d in titles_qiita %} <!-- Qiita 記事タイトル-->
+                <tr>
+                    <td>{{ d }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>中身が空です。</td>
+                </tr>
+            {% endfor %}
+
+            {% for e in links_qiita %} <!--Qiita URL-->
+                <tr>
+                    <td>{{ e }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>中身が空です。</td>
+                </tr>
+            {% endfor %}
+
+            {% for f in setsumei_qiita %} <!--Qiita記事冒頭/小見出し-->
+                <tr>
+                    <td>{{ f }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>中身が空です。</td>
+                </tr>
+            {% endfor %}
+            
+            
+
+            </table>
+        </form>
+    </body>
+</html>

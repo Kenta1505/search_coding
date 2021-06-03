@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="ja">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>プログラミング検索</title>
+        <meta charset='UTF-8'/>
+        <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
+        <!-- BootstrapのCSS読み込み -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- jQuery読み込み -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- BootstrapのJS読み込み -->
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div id="header">
+            <h1>プログラミング検索</h1>
+            <div id="picture">
+                {% load static %} 
+                <img src="{% static "search.jpg" %}" alt="searching" id="picture_1" class="align-self-center">
+            </div>
+        </div>
+        <form action="{% url 'app2:searching' %}" method="post">
+            {% csrf_token %}
+            <div id="search_windows">
+                {{form1.as_table}}<br>
+                <!--<tr><td colspan='2'><input type="submit" value="Submit"></td></tr>-->
+                {{form2.as_table}}<br>
+                <input type="checkbox" id="samurai" value="samurai" name="checkbox_sites_sm">
+                <label for="samurai">侍エンジニア塾</label>
+                <input type="checkbox" id="ta" value="ta" name="checkbox_sites_ta">
+                <label for="ta">TechAcademy</label>
+                <input type="checkbox" id="qiita" value="qiita" name="checkbox_sites_qiita">
+                <label for="qiita">Qiita</label><br>
+                <!--<p colspan='2'><input type="submit" name="search_button" value="検索"></p>-->
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="submit button" class="btn btn-primary" name="search_button" value="検索">検索</button>
+                    <button type="submit button" class="btn btn-primary" href="https://4bd63946e2d84f529eb5beffb3a8c3f0.vfs.cloud9.ap-northeast-1.amazonaws.com/">戻る</button>
+                </div>
+            </div>
+            <div id="kensaku">
+                {% if context_samurai or context_ta or context_qiita or dummy %}
+                    <h1>検索結果</h1>
+                    <!--    {% for uploadfile in uploadfile_list %}-->
+                    <!--        <a href="{% url 'app:download' uploadfile.pk %}">{{ uploadfile }}</a>-->
+                    <!--        <input type="checkbox" name="zip" value="{{ uploadfile.pk }}">-->
+                    <!--        <hr>-->
+                    <!--    {% endfor %}-->
+                    <!--    {% csrf_token %}-->
+                    <!--    <button type="submit">ZIPダウンロード</button>-->
+                    <!--</form>-->
+                    <table class="table table-striped table-md-responsive table-bordered">
+                        <thead>
+                            <div class="container">
+                                <div class="row">
+                                    <th class="align-middle text-center col-md-4">侍エンジニア塾</th> <!-- 侍エンジニア塾結果出力先-->
+                                    <th class="align-middle text-center col-md-4">TechAcademy</th> <!--TechAcademy出力先-->
+                                    <th class="align-middle text-center col-md-4">Qiita</th> <!--Qiita出力先-->
+                                </div>
+                            </div>
+                        </thead>
+                        <tbody>
+                            <div class="container">
+                                <div class="row">
+                                    <td class="col-md-4">
+                                        {% if excel_samurai %}
+                                            <a href="{{ excel_samurai }}" download class="btn-square">Excelダウンロード</a>
+                                            <p>記事が<b>{{ kensuu_samurai }}</b>件見つかりました。</p>
+                                        {% endif %}
+                                        {% for x in context_samurai %}
+                                            <p>・No.{{ forloop.counter }} <b><a href="{{ x.1 }}" target="_blank" rel="noopener noreferrer">{{ x.0 }}</a></b></p>
+                                            <p>{{ x.2 }}</p>
+                                        {% empty %}
+                                            <p>記事が見つかりませんでした。</p>
+                                        {% endfor %}
+                                    </td>
+                                    <td class="col-md-4">
+                                        {% if excel_ta %}
+                                            <a href="{{ excel_ta }}" download class="btn-square">Excelダウンロード</a>
+                                            <p>記事が<b>{{ kensuu_ta }}</b>件見つかりました。</p>
+                                        {% endif %}
+                                        {% for x in context_ta %}
+                                            <p>・No.{{ forloop.counter }} <b><a href="{{ x.1 }}" target="_blank" rel="noopener noreferrer">{{ x.0 }}</a></b></p>
+                                            <p>{{ x.3 }}</p>
+                                            <p><font size="2"><i>{{ x.2 }}</i></font></p>
+                                        {% empty %}
+                                            <p>記事が見つかりませんでした。</p>
+                                        {% endfor %}
+                                    </td>
+                                    <td class="col-md-4">
+                                        {% if excel_qiita %}
+                                            <a href="{{ excel_qiita }}" download class="btn-square">Excelダウンロード</a>
+                                            <p>記事が<b>{{ kensuu_qiita }}</b>件見つかりました。</p>
+                                        <!--<tr><td colspan='2'><input type="submit" name="qiita_excel" value="Excel出力"></td></tr>-->
+                                        <!--<button onclick="location.href='https://4bd63946e2d84f529eb5beffb3a8c3f0.vfs.cloud9.ap-northeast-1.amazonaws.com/download'">xcelファイル出力</button>-->
+                                        {% endif %}
+                                        {% for x in context_qiita %}
+                                            <p>・No.{{ forloop.counter }} <b><a href="{{ x.1 }}" target="_blank" rel="noopener noreferrer">{{ x.0 }}</a></b></p>
+                                            <p>{{ x.3 }}</p>
+                                            <p><font size="2"><i>{{ x.2 }}</i></font></p>
+                                        {% empty %}
+                                            <p>記事が見つかりませんでした。</p>
+                                        {% endfor %}
+                                    </td>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                    <nav>
+                        <a class="navi" href="#header"><img id="yajirushi" src="{% static "yajirushi.png" %}" alt="return_to_top">一番上に戻る</a>
+                    </nav>
+                {% endif %}
+            </div>
+        </form>
+    </body>
+</html>
